@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, screen } = require('electron');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -26,13 +26,16 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow();
+  createSecondWindow();
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -42,6 +45,31 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
+const createSecondWindow = () => {
+  const displays = screen.getAllDisplays();
+  console.log(displays);
+  const externalDisplay = displays.find((display) => {
+    return display.bounds.x !== 0 || display.bounds.y !== 0
+  });
+
+  if (externalDisplay) {
+    const win = new BrowserWindow({
+      x: externalDisplay.bounds.x + 50,
+      y: externalDisplay.bounds.y + 50,
+      frame: false,
+      fullscreen: true,
+      webPreferences: {
+        preload: path.join(__dirname, 'preload.js'),
+      },
+    });
+    if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+      win.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+    } else {
+      win.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
+    }
+  }
+};
 
 app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
