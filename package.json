@@ -20,9 +20,16 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
     "@electron-forge/plugin-fuses": "^7.4.0",
     "@electron-forge/plugin-vite": "^7.4.0",
+    "@electron-internal/eslint-config": "^1.0.1",
     "@electron/fuses": "^1.8.0",
     "@vitejs/plugin-vue": "^5.1.2",
     "electron": "31.3.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-vue": "^9.27.0",
+    "naive-ui": "^2.39.0",
+    "unplugin-auto-import": "^0.18.2",
+    "unplugin-vue-components": "^0.27.3",
+    "vfonts": "^0.0.3",
     "vite": "^5.0.12"
   },
   "keywords": [],
@@ -33,6 +40,7 @@
   "license": "MIT",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
-    "vue": "^3.4.35"
+    "vue": "^3.4.35",
+    "vue-router": "^4.4.2"
   }
 }
