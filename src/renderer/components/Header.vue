@@ -1,6 +1,6 @@
 <template>
   <n-layout>
-    <n-layout-header style="height: 64px; padding: 24px" bordered>
+    <n-layout-header bordered>
       Yiheyuan Road
     </n-layout-header>
   </n-layout>
